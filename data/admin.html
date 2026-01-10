@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Kos</title>
+</head>
+<body>
+
+<h2>🔐 Admin Login</h2>
+<input type="password" id="pass" placeholder="Password admin">
+<button onclick="login()">Login</button>
+
+<div id="adminPanel" style="display:none">
+  <h3>Tambah Kos Baru</h3>
+  <textarea id="output" rows="12" cols="80"></textarea>
+  <p>⬆️ Copy hasil ini ke <b>data/kos.js</b></p>
+</div>
+
+<script>
+const ADMIN_PASS = "admin123"; // GANTI PASSWORD INI
+
+function login() {
+  if (document.getElementById("pass").value === ADMIN_PASS) {
+    document.getElementById("adminPanel").style.display = "block";
+  } else {
+    alert("Password salah");
+  }
+}
+</script>
+
+</body>
+</html>
