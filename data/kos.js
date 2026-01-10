@@ -12,3 +12,17 @@ const kosData = [
     gambar: "assets/images/mawar.jpg"
   }
 ];
+const kosData = [
+  {
+    id: "kos-pakis",
+    nama: "Kos Putri Pakis",
+    lokasi: "Bandung",
+    harga: 800,
+    hargaText: "Rp 1.500.000 / bulan",
+    fasilitas: ["WiFi", "dapur", "KM Dalam"],
+    deskripsi: "Kos nyaman dekat kampus dan minimarket.",
+    wa: "6289528349772",
+    maps: "https://maps.app.goo.gl/9ghDjxRywm3VWtrM7",
+    gambar: "assets/images/mawar.jpg"
+  }
+];
