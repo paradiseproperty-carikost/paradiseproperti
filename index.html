@@ -6,15 +6,20 @@
   <title>Web Kos Sederhana</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
-    header { background: #2563eb; color: white; padding: 20px; text-align: center; }
-    .search { padding: 20px; background: white; display: flex; gap: 10px; justify-content: center; }
-    .search input { padding: 10px; width: 250px; }
+    header { background: #2563eb; color: white; padding: 24px; text-align: center; }
+    .search { padding: 16px; background: white; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .search input, .search select { padding: 10px; width: 220px; }
     .search button { padding: 10px 20px; background: #2563eb; color: white; border: none; cursor: pointer; }
-    .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-    .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-    .card img { width: 100%; height: 150px; object-fit: cover; }
+    .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .card img { width: 100%; height: 160px; object-fit: cover; }
     .card .content { padding: 15px; }
-    .price { color: #16a34a; font-weight: bold; }
+    .price { color: #16a34a; font-weight: bold; margin-bottom: 8px; }
+    .badge { display: inline-block; background:#e5e7eb; padding:4px 8px; border-radius:6px; font-size:12px; margin-right:4px; }
+    .actions { display:flex; gap:8px; margin-top:10px; }
+    .btn { flex:1; text-align:center; padding:8px; border-radius:6px; text-decoration:none; font-size:14px; }
+    .btn-map { background:#e5e7eb; color:#111; }
+    .btn-wa { background:#22c55e; color:white; }
     footer { text-align: center; padding: 20px; color: #666; }
   </style>
 </head>
@@ -27,13 +32,19 @@
 
 <div class="search">
   <input type="text" id="searchInput" placeholder="Cari lokasi (contoh: Bandung)" />
-  <button onclick="searchKos()">Cari</button>
+  <select id="priceFilter">
+    <option value="">Semua Harga</option>
+    <option value="500">≤ 500rb</option>
+    <option value="1000">≤ 1 juta</option>
+    <option value="2000">≤ 2 juta</option>
+  </select>
+  <button onclick="filterKos()">Cari</button>
 </div>
 
 <div class="container" id="kosList"></div>
 
 <footer>
-  © 2026 Web Kos Sederhana
+  © 2026 Paradise Property – Cari Kos
 </footer>
 
 <script>
@@ -41,19 +52,31 @@
     {
       nama: "Kos Putri Mawar",
       lokasi: "Bandung",
-      harga: "Rp 800.000 / bulan",
+      harga: 800,
+      hargaText: "Rp 800.000 / bulan",
+      fasilitas: ["WiFi", "AC", "KM Dalam"],
+      wa: "628123456789",
+      maps: "https://maps.google.com/?q=Bandung",
       gambar: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
     },
     {
       nama: "Kos Exclusive",
       lokasi: "Jakarta",
-      harga: "Rp 1.500.000 / bulan",
+      harga: 1500,
+      hargaText: "Rp 1.500.000 / bulan",
+      fasilitas: ["AC", "Parkir", "Lemari"],
+      wa: "628987654321",
+      maps: "https://maps.google.com/?q=Jakarta",
       gambar: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
     },
     {
       nama: "Kos Harian Sejahtera",
       lokasi: "Surabaya",
-      harga: "Rp 600.000 / bulan",
+      harga: 600,
+      hargaText: "Rp 600.000 / bulan",
+      fasilitas: ["WiFi", "Kasur"],
+      wa: "628111222333",
+      maps: "https://maps.google.com/?q=Surabaya",
       gambar: "https://images.unsplash.com/photo-1505691938895-1758d7feb511"
     }
   ];
@@ -61,6 +84,10 @@
   function tampilkanKos(data) {
     const list = document.getElementById('kosList');
     list.innerHTML = '';
+    if (data.length === 0) {
+      list.innerHTML = '<p>Tidak ada kos ditemukan.</p>';
+      return;
+    }
     data.forEach(kos => {
       list.innerHTML += `
         <div class="card">
@@ -68,19 +95,27 @@
           <div class="content">
             <h3>${kos.nama}</h3>
             <p>📍 ${kos.lokasi}</p>
-            <p class="price">${kos.harga}</p>
+            <p class="price">${kos.hargaText}</p>
+            <div>${kos.fasilitas.map(f => `<span class=\"badge\">${f}</span>`).join('')}</div>
+            <div class="actions">
+              <a class="btn btn-map" href="${kos.maps}" target="_blank">Maps</a>
+              <a class="btn btn-wa" href="https://wa.me/${kos.wa}" target="_blank">WhatsApp</a>
+            </div>
           </div>
         </div>`;
     });
   }
 
-  function searchKos() {
+  function filterKos() {
     const keyword = document.getElementById('searchInput').value.toLowerCase();
-    const hasil = kosData.filter(kos => kos.lokasi.toLowerCase().includes(keyword));
+    const maxPrice = document.getElementById('priceFilter').value;
+    let hasil = kosData.filter(k => k.lokasi.toLowerCase().includes(keyword));
+    if (maxPrice) {
+      hasil = hasil.filter(k => k.harga <= maxPrice);
+    }
     tampilkanKos(hasil);
   }
 
-  // tampilkan semua kos saat awal
   tampilkanKos(kosData);
 </script>
 
