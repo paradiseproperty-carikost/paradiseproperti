@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Detail Kos</title>
+  <script src="data/kos.js"></script>
+</head>
+<body>
+
+<div id="detail"></div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const kos = kosData.find(k => k.id === id);
+
+if (!kos) {
+  document.getElementById("detail").innerHTML = "Kos tidak ditemukan";
+} else {
+  document.getElementById("detail").innerHTML = `
+    <h1>${kos.nama}</h1>
+    <img src="${kos.gambar}" width="300"><br><br>
+    <b>Lokasi:</b> ${kos.lokasi}<br>
+    <b>Harga:</b> ${kos.hargaText}<br><br>
+    <b>Fasilitas:</b><br>
+    ${kos.fasilitas.join(", ")}<br><br>
+    <p>${kos.deskripsi}</p>
+    <a href="${kos.maps}" target="_blank">📍 Google Maps</a><br><br>
+    <a href="https://wa.me/${kos.wa}" target="_blank">📱 WhatsApp</a>
+  `;
+}
+</script>
+
+</body>
+</html>
