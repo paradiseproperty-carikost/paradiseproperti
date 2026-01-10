@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Kos Sederhana</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+    header { background: #2563eb; color: white; padding: 20px; text-align: center; }
+    .search { padding: 20px; background: white; display: flex; gap: 10px; justify-content: center; }
+    .search input { padding: 10px; width: 250px; }
+    .search button { padding: 10px 20px; background: #2563eb; color: white; border: none; cursor: pointer; }
+    .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    .card img { width: 100%; height: 150px; object-fit: cover; }
+    .card .content { padding: 15px; }
+    .price { color: #16a34a; font-weight: bold; }
+    footer { text-align: center; padding: 20px; color: #666; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏠 Cari Kos</h1>
+  <p>Temukan kos berdasarkan lokasi</p>
+</header>
+
+<div class="search">
+  <input type="text" id="searchInput" placeholder="Cari lokasi (contoh: Bandung)" />
+  <button onclick="searchKos()">Cari</button>
+</div>
+
+<div class="container" id="kosList"></div>
+
+<footer>
+  © 2026 Web Kos Sederhana
+</footer>
+
+<script>
+  const kosData = [
+    {
+      nama: "Kos Putri Mawar",
+      lokasi: "Bandung",
+      harga: "Rp 800.000 / bulan",
+      gambar: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2"
+    },
+    {
+      nama: "Kos Exclusive",
+      lokasi: "Jakarta",
+      harga: "Rp 1.500.000 / bulan",
+      gambar: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+    },
+    {
+      nama: "Kos Harian Sejahtera",
+      lokasi: "Surabaya",
+      harga: "Rp 600.000 / bulan",
+      gambar: "https://images.unsplash.com/photo-1505691938895-1758d7feb511"
+    }
+  ];
+
+  function tampilkanKos(data) {
+    const list = document.getElementById('kosList');
+    list.innerHTML = '';
+    data.forEach(kos => {
+      list.innerHTML += `
+        <div class="card">
+          <img src="${kos.gambar}" alt="${kos.nama}">
+          <div class="content">
+            <h3>${kos.nama}</h3>
+            <p>📍 ${kos.lokasi}</p>
+            <p class="price">${kos.harga}</p>
+          </div>
+        </div>`;
+    });
+  }
+
+  function searchKos() {
+    const keyword = document.getElementById('searchInput').value.toLowerCase();
+    const hasil = kosData.filter(kos => kos.lokasi.toLowerCase().includes(keyword));
+    tampilkanKos(hasil);
+  }
+
+  // tampilkan semua kos saat awal
+  tampilkanKos(kosData);
+</script>
+
+</body>
+</html>
