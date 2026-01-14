@@ -1,28 +1,27 @@
-const kosData = [
+<script>
+const daftarKos = [
   {
-    id: "kos-mawar",
+    id: 1,
     nama: "Kos Putri Mawar",
     lokasi: "Bandung",
-    harga: 800,
-    hargaText: "Rp 800.000 / bulan",
+    harga: 800000,
+    deskripsi: "Kos khusus putri, aman dan nyaman",
     fasilitas: ["WiFi", "AC", "KM Dalam"],
-    deskripsi: "Kos nyaman dekat kampus dan minimarket.",
+    gambar: "assets/img/kos1.jpg",
     wa: "628123456789",
-    maps: "https://maps.google.com/?q=Bandung",
-    gambar: "assets/images/mawar.jpg"
-  }
-];
-const kosData = [
+    maps: "https://maps.google.com/?q=Bandung"
+  },
+
   {
-    id: "kos-pakis",
-    nama: "Kos Putri Pakis",
-    lokasi: "Bandung",
-    harga: 800,
-    hargaText: "Rp 1.500.000 / bulan",
-    fasilitas: ["WiFi", "dapur", "KM Dalam"],
-    deskripsi: "Kos nyaman dekat kampus dan minimarket.",
-    wa: "6289528349772",
-    maps: "https://maps.app.goo.gl/9ghDjxRywm3VWtrM7",
-    gambar: "assets/images/mawar.jpg"
+    id: 2,
+    nama: "Kos Bang Jaya",
+    lokasi: "Jakarta",
+    harga: 1200000,
+    deskripsi: "Kos bebas dekat kampus",
+    fasilitas: ["WiFi", "Parkir"],
+    gambar: "assets/img/kos2.jpg",
+    wa: "628987654321",
+    maps: "https://maps.google.com/?q=Jakarta"
   }
 ];
+</script>
